@@ -1,0 +1,10 @@
+integration_name: com.newrelic.softwareag.ums
+
+instances:
+    - name: ums-server-metrics
+      command: metrics
+      arguments:
+        config_file: 'C:/Program Files/New Relic/newrelic-infra/integrations.d/softwareag-ums-server-config.json'
+      labels:
+        env: Test
+        role: SoftwareAG-UMS-SERVER
