@@ -1,0 +1,22 @@
+{
+	"instances": [
+		{
+    	   "name": "SoftwareAG-UME-SERVER-1",
+    	   "host": "localhost",
+    	   "port": 9000,
+		   "username": "myuser4",
+		   "password": "mypwd4",
+		   "encryptPassword": false
+		
+	    },
+		{
+    	   "name": "SoftwareAG-UME-SERVER-2",
+    	   "host": "localhost",
+    	   "port": 9001,
+		   "username": "myuser4",
+		   "password": "***REMOVED***",
+		   "encryptPassword": true,
+		   "aeskey": "***REMOVED***"
+		}
+	]
+}
