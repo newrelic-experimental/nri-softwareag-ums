@@ -33,7 +33,7 @@ jobs:
 
       - name: Build with Gradle and verifyInstrumentation
         run: |
-          ./gradlew build install 
+          ./gradlew clean build install  
 
       - name: Identify Release Type
         id: define_release_type
@@ -56,7 +56,7 @@ jobs:
         run: |
           major_version=1
           minor_version=0
-          patch_revision=1
+          patch_revision=0
 
           # Retrieve the latest release tag
           latest_tag=$(git describe --abbrev=0 --tags 2>/dev/null) || true
@@ -94,7 +94,7 @@ jobs:
         run: |
           repo_name="${{ github.repository }}"
           sanitized_repo_name=$(echo "$repo_name" | awk -F 'newrelic-java-' '{print $2}')
-          echo "RELEASE_NAME=${sanitized_repo_name}-instrumentation-" >> $GITHUB_ENV
+          echo "RELEASE_NAME=${sanitized_repo_name}-infra-extension-" >> $GITHUB_ENV
           previous_tag=$(git describe --abbrev=0 --tags HEAD^ 2>/dev/null || git rev-list --max-parents=0 HEAD)
 
       - name: Create Archive
