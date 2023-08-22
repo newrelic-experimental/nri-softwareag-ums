@@ -103,7 +103,7 @@ jobs:
           cd build/distributions/
           mv softwareag-ums.tar softwareag-ums_linux.tar
           mv softwareag-ums.zip softwareag-ums_windows.zip
-          zip -r /tmp/to/${{ env.RELEASE_NAME}}${{ steps.set_tag.outputs.tag }}_win.zip *.zip *.tar
+          zip -r /tmp/to/${{ env.RELEASE_NAME}}${{ steps.set_tag.outputs.tag }}.zip *.zip *.tar
           cd ${{env.CURRENT}}
 
       
