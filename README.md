@@ -78,7 +78,7 @@ Edit *softwareag-ums-definition.yml* file to edit the path for softwareag-ums.ja
 | --- | --- |
 | name | Name describing the UMS Server |
 | host | DNS name of IP of the UMS Server |
-| port | port number of EMS Server, typically 9000 |
+| port | port number of UMS Server, typically 9000 |
 | username | username for connecting |
 | password | provide password for user  |
 | encryptPassword | set to true if password is mangled (encrypted), else set to false | 
