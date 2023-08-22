@@ -93,7 +93,7 @@ jobs:
         id: set_release_name
         run: |
           repo_name="${{ github.repository }}"
-          sanitized_repo_name=$(echo "$repo_name" | awk -F 'newrelic-java-' '{print $2}')
+          sanitized_repo_name=$(echo "$repo_name" | awk -F 'nri-' '{print $2}')
           echo "RELEASE_NAME=${sanitized_repo_name}-infra-extension-" >> $GITHUB_ENV
           previous_tag=$(git describe --abbrev=0 --tags HEAD^ 2>/dev/null || git rev-list --max-parents=0 HEAD)
 
