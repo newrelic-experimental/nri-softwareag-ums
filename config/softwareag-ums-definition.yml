@@ -1,13 +1,10 @@
-name: com.newrelic.softwareag.ums
-description: Reports status and metrics for SoftwaraAG Universal Messaging Entrprise service
-protocol_version: 2
-os: windows
+integration_name: com.newrelic.softwareag.ums
 
-commands:
-  metrics:
-    command:
-      - java
-      - -jar
-      - 'C:/Program Files/New Relic/newrelic-infra/custom-integrations/softwareag-ums.jar' 
-    prefix: integration/softwareag_ums
-    interval: 60
+instances:
+    - name: ums-server-metrics
+      command: metrics
+      arguments:
+        config_file: 'C:/Program Files/New Relic/newrelic-infra/integrations.d/softwareag-ums-server-config.json'
+      labels:
+        env: Test
+        role: SoftwareAG-UMS-SERVER

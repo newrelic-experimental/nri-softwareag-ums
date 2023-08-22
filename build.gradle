@@ -4,8 +4,8 @@ plugins {
 	id 'distribution'
 }
 
-group = 'com.newrelic.nri'
-version = '1.0'
+group = 'com.newrelic.labs'
+version = ''
 
 repositories {
 	mavenCentral()
