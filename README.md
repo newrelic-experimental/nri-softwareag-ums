@@ -1,58 +1,166 @@
+
+
 <a href="https://opensource.newrelic.com/oss-category/#new-relic-experimental"><picture><source media="(prefers-color-scheme: dark)" srcset="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/dark/Experimental.png"><source media="(prefers-color-scheme: light)" srcset="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/Experimental.png"><img alt="New Relic Open Source experimental project banner." src="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/Experimental.png"></picture></a>
 
-# [Project Name]
-![GitHub forks](https://img.shields.io/github/forks/newrelic-experimental/newrelic-experimental-FIT-template?style=social)
-![GitHub stars](https://img.shields.io/github/stars/newrelic-experimental/newrelic-experimental-FIT-template?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/newrelic-experimental/newrelic-experimental-FIT-template?style=social)
 
-![GitHub all releases](https://img.shields.io/github/downloads/newrelic-experimental/newrelic-experimental-FIT-template/total)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/newrelic-experimental/newrelic-experimental-FIT-template)
-![GitHub last commit](https://img.shields.io/github/last-commit/newrelic-experimental/newrelic-experimental-FIT-template)
-![GitHub Release Date](https://img.shields.io/github/release-date/newrelic-experimental/newrelic-experimental-FIT-template)
+![GitHub forks](https://img.shields.io/github/forks/newrelic-experimental/nri-softwareag-ums?style=social)
+![GitHub stars](https://img.shields.io/github/stars/newrelic-experimental/nri-softwareag-ums?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/newrelic-experimental/nri-softwareag-ums?style=social)
 
-
-![GitHub issues](https://img.shields.io/github/issues/newrelic-experimental/newrelic-experimental-FIT-template)
-![GitHub issues closed](https://img.shields.io/github/issues-closed/newrelic-experimental/newrelic-experimental-FIT-template)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/newrelic-experimental/newrelic-experimental-FIT-template)
-![GitHub pull requests closed](https://img.shields.io/github/issues-pr-closed/newrelic-experimental/newrelic-experimental-FIT-template)
+![GitHub all releases](https://img.shields.io/github/downloads/newrelic-experimental/nri-softwareag-ums/total)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/newrelic-experimental/nri-softwareag-ums)
+![GitHub last commit](https://img.shields.io/github/last-commit/newrelic-experimental/nri-softwareag-ums)
+![GitHub Release Date](https://img.shields.io/github/release-date/newrelic-experimental/nri-softwareag-ums)
 
 
->[Brief description - what is the project and value does it provide? How often should users expect to get releases? How is versioning set up? Where does this project want to go?]
+![GitHub issues](https://img.shields.io/github/issues/newrelic-experimental/nri-softwareag-ums)
+![GitHub issues closed](https://img.shields.io/github/issues-closed/newrelic-experimental/nri-softwareag-ums)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/newrelic-experimental/nri-softwareag-ums)
+![GitHub pull requests closed](https://img.shields.io/github/issues-pr-closed/newrelic-experimental/nri-softwareag-ums)
+
+
+
+# New Relic Infrastructure Integration for SoftwareAG Universal Messaging Server ( UMS)
+
+The existing implementation reports the metrics for both Channels (including topics)  and Queues of the SoftwareAG Universal Messaging Server. This implementation currently operates with the nps connection protocol and utilizes basic authentication. To ensure successful interaction, the Basic authentication relies on appropriately configured policies within the SoftwareAG Universal Messaging Server's ACL.
+
+## Disclaimer
+
+New Relic has open-sourced this integration to enable monitoring of this technology. This integration is provided AS-IS WITHOUT WARRANTY OR SUPPORT, although you can report issues and contribute to this integration via GitHub.
+    
+## Requirements
+
+ - New Relic Infrastructure Agent
+
+## Using Mangled Passwords in config files
+  
+In order to encrypt the password of the user connecting to UMS, you need to run the included utility (encyptPwd.bat/ encyptPwd.sh ) to mangle the password.  Then place the encrypted password in the password field and include the encryptPassword field with a value of true.   
+
+In the extracted release directory run the encyptPwd.sh / encyptPwd.bat script as per the instruction below .  It will output the aesKey and mangled password to use in softwareag-ums-server-config.json.  
+
+  ### Step 1: Generate the 128 bit AES Key [ Example ]
+          encyptPwd generateKey
+   Generated AES Key: UpcuADRwNmGDr2+f0eVcBw==
+  ### Step 2: Generate the mangles password [ Example ]
+		   encyptPwd encryptPassword UpcuADRwNmGDr2+f0eVcBw== MyPassword@123
+   Encrypted Password: GkZ9c2ziz9QO7AlfALyZxg==-UMS-oMl/eTUOz/Heg0XtmoRugg==
+           Success !
+### Sample  softwareag-ums-server-config.json
+       
+	{
+	  "instances": [
+	    {
+	      "name": "SoftwareAG-UME-SERVER-1",
+	      "host": "localhost",
+	      "port": 9000,
+	      "username": "myuser4",
+	      "password": "mypwd4",
+	      "encryptPassword": false
+	    },
+	    {
+	      "name": "SoftwareAG-UME-SERVER-2",
+	      "host": "localhost",
+	      "port": 9001,
+	      "username": "myuser4",
+	      "password": "MoRecH4RDktZm6+ma3JuyQ==-UMS-N6+7w1hdCz6+N84ccyshBQ==",
+	      "encryptPassword": true,
+	      "aeskey": "9WZvUdhkAXPQ55fcEcT4lw=="
+	    }
+	  ]
+	}
+## Configuration
+
+Edit *softwareag-ums-server-config.json* file to edit the tibco server(s) connection information. 
+Edit *softwareag-ums-config.yml* file to edit the path for the json file above. 
+Edit *softwareag-ums-definition.yml* file to edit the path for softwareag-ums.jar. 
+
+| Attribute | Description |
+| --- | --- |
+| name | Name describing the UMS Server |
+| host | DNS name of IP of the UMS Server |
+| port | port number of EMS Server, typically 9000 |
+| username | username for connecting |
+| password | provide password for user  |
+| encryptPassword | set to true if password is mangled (encrypted), else set to false | 
+| aeskey | (optional) when encryptPassword is false and (mandatory) when encryptPassword is true |
 
 ## Value
 
 |Metrics | Events | Logs | Traces | Visualization | Automation |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-|:white_check_mark:|:white_check_mark:|:x:|:white_check_mark:|:x:|:x:|
+|:x:|:white_check_mark:|:x:|:x:|:x:|:x:|
 
-### List of Metrics,Events,Logs,Traces
-|Name | Type | Description |
-|:-:|:-:|:-:|
-|*metric.name* | Metric| *description*|
-|*event.name* | Event|  *description*|
-|*log.name* | Log|  *description*|
-|*trace.name*| Trace| *description*
-|---|---|---|
+The data collected is reported to New Relic as Custom Events.  The following is a list of events that can be reported.   An event is only recorded if data present for that item so not all events may be reported.
+
+### Event Types
+   
+| Event Type | Description |
+| ---- | ---- |
+| **EMSQueue** | Metrics related to an UMS Queue.  Attribute "Queue Name" is the name of the queue |
+| **EMSChannel** | Metrics related to an UMS Channel and UMS Topics.  Attribute "Channel Name" is the name of the channel |
+
+
 
 ## Installation
 
-> [Include a step-by-step procedure on how to get your code installed. Be sure to include any third-party dependencies that need to be installed separately]
+1. Extract the Release archive to the local disk
+2. Edit *softwareag-ums-server-config.json* according to the Confguration section above.   
+3. Either run the install script or follow the instructions below for manual installation.
+4. Restart the infrastructure agent
 
-## Getting Started
+```sh
+sudo systemctl stop newrelic-infra
 
->[Simple steps to start working with the software similar to a "Hello World"]
+sudo systemctl start newrelic-infra
+```
 
-## Usage
 
->[**Optional** - Include more thorough instructions on how to use the software. This section might not be needed if the Getting Started section is enough. Remove this section if it's not needed.]
+### By Script
 
-## Building
+## Linux
+As the root user, run the following command:
 
->[**Optional** - Include this section if users will need to follow specific instructions to build the software from source. Be sure to include any third party build dependencies that need to be installed separately. Remove this section if it's not needed.]
+```sh
 
-## Testing
+./install.sh
+```
+### Windows
+```sh
 
->[**Optional** - Include instructions on how to run tests if we include tests with the codebase. Remove this section if it's not needed.]
+./install.bat
+```
+
+### Manual
+
+Install the SoftwareAG UMS monitoring plugin
+
+### Linux
+```sh
+
+cp softwareag-ums.jar /var/db/newrelic-infra/custom-integrations
+
+cp softwareag-ums-definition.yml /var/db/newrelic-infra/custom-integrations/
+
+cp softwareag-ums-config.yml /etc/newrelic-infra/integrations.d/
+
+cp softwareag-ums-server-config.json /etc/newrelic-infra/integrations.d/
+
+```
+### Windows
+```sh
+
+copy softwareag-ums.jar "C:\Program Files\New Relic\newrelic-infra\custom-integrations\"
+
+copy softwareag-ums-definition.yml "C:\Program Files\New Relic\newrelic-infra\custom-integrations\"
+
+copy softwareag-ums-config.yml "C:\Program Files\New Relic\newrelic-infra\integrations.d"
+
+copy softwareag-ums-server-config.json "C:\Program Files\New Relic\newrelic-infra\integrations.d"
+```
+
+## Compatibility
+
+* Supported OS: Windows, Linux
 
 ## Support
 
@@ -73,6 +181,5 @@ If you believe you have found a security vulnerability in this project or any of
 
 ## License
 
-[Project Name] is licensed under the [Apache 2.0](http://apache.org/licenses/LICENSE-2.0.txt) License.
+[nri-softwareag-ums] is licensed under the [Apache 2.0](http://apache.org/licenses/LICENSE-2.0.txt) License.
 
->[If applicable: [Project Name] also uses source code from third-party libraries. You can find full details on which libraries are used and the terms under which they are licensed in the third-party notices document.]
