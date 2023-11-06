@@ -1,15 +1,16 @@
 {
   "instances": [
     {
-      "name": "SoftwareAG-UME-SERVER-1",
+      "name": "SoftwareAG-UMS-Realm",
       "host": "localhost",
       "port": 9000,
       "username": "myuser4",
       "password": "mypwd4",
-      "encryptPassword": false
+      "encryptPassword": false,
+      "isCluster": false
     },
     {
-      "name": "SoftwareAG-UME-SERVER-2",
+      "name": "SoftwareAG-UMS-Cluster",
       "host": "localhost",
       "port": 9001,
       "username": "myuser4",
