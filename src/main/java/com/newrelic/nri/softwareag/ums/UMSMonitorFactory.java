@@ -7,7 +7,8 @@ public class UMSMonitorFactory {
 	private static final Number DEFAULT_PORT = 9000;
 	private static String MANGLED_PREFIX = "-UMS-";
 
-	public UMSMonitor createAgent(Map<String, Object> properties) throws Exception {
+	public Object createAgent(Map<String, Object> properties) throws Exception {
+
 		String name = (String) properties.get("name");
 		String host = (String) properties.get("host");
 		Number port = (Number) properties.get("port");
@@ -33,10 +34,21 @@ public class UMSMonitorFactory {
 			encryptPassword = false;
 		}
 
+		Boolean isCluster = (Boolean) properties.get("isCluster");
 
+		if (null == isCluster)
+		{
+			isCluster = true; // default is true
+		}
+
+		Object agent = null;
 		UMServer ems = new UMServer(name, host, port.intValue(), username, password, aeskey, encryptPassword);
 
-		UMSMonitor agent = new UMSMonitor(ems);
+		if(isCluster) {
+				 agent = new UMSClusterMonitor(ems);
+		}
+		else
+			 agent = new UMSMonitor(ems);
 
 		return agent;
 	}

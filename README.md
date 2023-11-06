@@ -42,7 +42,7 @@ In the extracted release directory run the encyptPwd.sh / encyptPwd.bat script a
           encyptPwd generateKey
    Generated AES Key: ***REMOVED***
   ### Step 2: Generate the mangles password [ Example ]
-		   encyptPwd encryptPassword ***REMOVED*** MyPassword@123
+	  encyptPwd encryptPassword ***REMOVED*** MyPassword@123
    Encrypted Password: ***REMOVED***
            Success !
 ### Sample  softwareag-ums-server-config.json
@@ -50,15 +50,16 @@ In the extracted release directory run the encyptPwd.sh / encyptPwd.bat script a
 	{
 	  "instances": [
 	    {
-	      "name": "SoftwareAG-UME-SERVER-1",
+	      "name": "SoftwareAG-UMS-Realm",
 	      "host": "localhost",
 	      "port": 9000,
 	      "username": "myuser4",
 	      "password": "mypwd4",
-	      "encryptPassword": false
+	      "encryptPassword": false,
+	      "isCluster": false
 	    },
 	    {
-	      "name": "SoftwareAG-UME-SERVER-2",
+	      "name": "SoftwareAG-UMS-Cluster",
 	      "host": "localhost",
 	      "port": 9001,
 	      "username": "myuser4",
@@ -68,7 +69,6 @@ In the extracted release directory run the encyptPwd.sh / encyptPwd.bat script a
 	    }
 	  ]
 	}
-## Configuration
 
 Edit *softwareag-ums-server-config.json* file to edit the tibco server(s) connection information. 
 Edit *softwareag-ums-config.yml* file to edit the path for the json file above. 
@@ -76,13 +76,14 @@ Edit *softwareag-ums-definition.yml* file to edit the path for softwareag-ums.ja
 
 | Attribute | Description |
 | --- | --- |
-| name | Name describing the UMS Server |
-| host | DNS name of IP of the UMS Server |
+| name | Name describing the UM Server |
+| host | DNS name of IP of the UM Server |
 | port | port number of UMS Server, typically 9000 |
 | username | username for connecting |
 | password | provide password for user  |
 | encryptPassword | set to true if password is mangled (encrypted), else set to false | 
 | aeskey | (optional) when encryptPassword is false and (mandatory) when encryptPassword is true |
+| isCluster | (optional) when isCluster is false it will be traeted as Realm node else it will be treated as cluster (by default) |
 
 ## Value
 
@@ -98,6 +99,7 @@ The data collected is reported to New Relic as Custom Events.  The following is 
 | ---- | ---- |
 | **EMSQueue** | Metrics related to an UMS Queue.  Attribute "Queue Name" is the name of the queue |
 | **EMSChannel** | Metrics related to an UMS Channel and UMS Topics.  Attribute "Channel Name" is the name of the channel |
+| **UMSCluster** | Metrics related to a Cluster.  Attribute "Cluster Name" is the name of the Cluster |
 
 
 

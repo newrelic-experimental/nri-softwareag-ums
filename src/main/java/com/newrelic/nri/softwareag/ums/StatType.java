@@ -7,6 +7,12 @@ public enum StatType {
             return "UMSChannel";
         }
 	},
+	Cluster {
+        @Override
+        public String getEventType() {
+            return "UMSCluster";
+        }
+	},
 	Bridge {
         @Override
         public String getEventType() {

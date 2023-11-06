@@ -39,7 +39,7 @@ public class Main {
 		}
 
 		String configFile = System.getenv("CONFIG_FILE");
-		//String configFile = "/Users/gsidhwani/Documents/GitHub/SoftwareAG/softwareag-ume-server-config.json";
+		//String  configFile = "/Users/gsidhwani/Documents/GitHub/SoftwareAG/softwareag-ume-server-config.json";
 		if (configFile == null)
 		{
 			configFile = args.getConfigFile();
@@ -134,16 +134,30 @@ public class Main {
 			}
 
 			try {
-				UMSMonitorFactory factory = new UMSMonitorFactory();
-				UMSMonitor monitor = factory.createAgent(agentProperties);
-				JSONMetricReporter metricReporter = new JSONMetricReporter();
-				monitor.populateMetrics(metricReporter);
-				JSONObject reportJson = metricReporter.getJSON();
-				String jsonStr = reportJson.toString();
-				System.out.println(jsonStr);
+			    UMSMonitorFactory factory = new UMSMonitorFactory();
+			
+			    Object monitor = factory.createAgent(agentProperties);
+			    JSONMetricReporter metricReporter = new JSONMetricReporter();
+			    
+			    if (monitor instanceof UMSClusterMonitor) {
+			        ((UMSClusterMonitor) monitor).populateMetrics(metricReporter);
+			       // System.out.println("Processing as Cluster.");
+			        
+			    } else if (monitor instanceof UMSMonitor) {
+			        ((UMSMonitor) monitor).populateMetrics(metricReporter);
+			       // System.out.println("Processing as Realm.");
+			    } else {
+			        // Handle the case when 'monitor' is neither UMSClusterMonitor nor UMSMonitor
+			       // System.out.println("Unknown monitor type.");
+			        
+			    }
+
+			    JSONObject reportJson = metricReporter.getJSON();
+			    String jsonStr = reportJson.toString();
+			    System.out.println(jsonStr);
 			} catch (Exception e) {
-				e.printStackTrace();
-				Utils.reportError("Error occurred while getting metrics",e);
+			    e.printStackTrace();
+			    Utils.reportError("Error occurred while getting metrics", e);
 			}
 
 		}

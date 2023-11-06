@@ -43,6 +43,15 @@ public class UMSMonitor {
             Utils.reportError("Failed to connect", e);
         }
     }
+    public void connectRealm(nRealmNode rNode) {
+
+        realmNode = rNode;
+        //  System.out.println();
+        //  System.out.println("Connected to Realm : " + realmNode.getName());
+        //  System.out.println();
+		waitForRealmNodeNameSpace (realmNode);
+		scanRealmForChannelsAndQueues(realmNode.getNodes());
+    }
     private void waitForRealmNodeNameSpace (nRealmNode realmNode) {
        // realmNode.waitForEntireNameSpace();
         try {
@@ -52,18 +61,20 @@ public class UMSMonitor {
         }
       }
     private void scanRealmForChannelsAndQueues(@SuppressWarnings("rawtypes") final Enumeration realmNamespaceNodes) {
-        while (realmNamespaceNodes.hasMoreElements()) {
+       // System.out.println("1");
+    	while (realmNamespaceNodes.hasMoreElements()) {
             final  nNode child = (nNode) realmNamespaceNodes.nextElement();
-
+            //System.out.println("2");
             if (child instanceof nLeafNode) {
                 final nLeafNode leafNode = (nLeafNode) child;
-
+                //System.out.println("3");
                 if (leafNode.isChannel()) {
                     channels.add(leafNode);
                 } else if (leafNode.isQueue()) {
                     queues.add(leafNode);
                 }
             } else if (child instanceof nContainer) {
+            	  // System.out.println("4");
                 scanRealmForChannelsAndQueues(((nContainer) child).getNodes());
             }
         }

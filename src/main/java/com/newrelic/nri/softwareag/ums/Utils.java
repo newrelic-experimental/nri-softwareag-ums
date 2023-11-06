@@ -7,7 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Utils {
-	private static final String NAME = "Tibco_EMS";
+	private static final String NAME = "SoftwareAG_UMS";
 	JSONArray dataArray = new JSONArray();
 
 	private static final String PROTOCOL_VERSION = Integer.toString(2);
@@ -23,7 +23,7 @@ public class Utils {
 		JSONArray dataArray = new JSONArray();
 		JSONObject json2 = new JSONObject();
 		JSONObject entity = new JSONObject();
-		entity.put("name", "TibcoEMSError");
+		entity.put("name", "SoftwareAGUMSError");
 		entity.put("type", "Error");
 		json2.put("entity", entity);
 
