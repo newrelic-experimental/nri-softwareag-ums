@@ -5,7 +5,7 @@
       "host": "localhost",
       "port": 9000,
       "username": "myuser4",
-      "password": "mypwd4",
+      "password": "<cleartext_password>",
       "encryptPassword": false,
       "isCluster": false
     },
@@ -14,9 +14,9 @@
       "host": "localhost",
       "port": 9001,
       "username": "myuser4",
-      "password": "***REMOVED***",
+      "password": "<encrypted_password>",
       "encryptPassword": true,
-      "aeskey": "***REMOVED***"
+      "aeskey": "<generated_aes_key>"
     }
   ]
 }
