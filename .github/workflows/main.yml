@@ -99,8 +99,8 @@ jobs:
         run: |
           echo "CURRENT=${PWD}" >> $GITHUB_ENV
           cd build/distributions/
-          mv softwareag-ums.tar softwareag-ums_linux.tar
-          mv softwareag-ums.zip softwareag-ums_windows.zip
+          mv softwareag-ums-1.1.tar softwareag-ums_linux.tar
+          mv softwareag-ums-1.1.zip softwareag-ums_windows.zip
           zip -r /tmp/to/${{ env.RELEASE_NAME}}${{ steps.set_tag.outputs.tag }}.zip *.zip *.tar
           cd ${{env.CURRENT}}
 
