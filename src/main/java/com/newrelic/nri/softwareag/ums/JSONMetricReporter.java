@@ -16,9 +16,9 @@ import com.newrelic.nri.softwareag.ums.metrics.SourceType;
 
 public class JSONMetricReporter {
 
-	private static final String NAME = "SoftwareagUME";
+	private static final String NAME = "SoftwareagUMS";
 	private static final String PROTOCOL_VERSION = Integer.toString(2);
-	private static final String INTEGRATION_VERSION = "1.0";
+	private static final String INTEGRATION_VERSION = "1.1";
 
 	private Map<String, List<Metric>> values = new HashMap<>();
 	private List<EntityData> data = new ArrayList<>();

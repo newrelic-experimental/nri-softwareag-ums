@@ -1,5 +1,7 @@
 package com.newrelic.nri.softwareag.ums;
 
+import com.pcbsys.nirvana.nAdminAPI.nClusterNode;
+
 public class UMServer {
     private String host;
     private int port = 9000; // default port
@@ -9,6 +11,7 @@ public class UMServer {
 	private String password;
 	private String aeskey;
 	private boolean encpwd=false;
+	
 
     public UMServer(String name, String host, int port, String username, String password, String aeskey, boolean encpwd) {
         this.name = name;
