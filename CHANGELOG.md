@@ -3,7 +3,7 @@
 - Added enhancements for Cluster Level Metrics for UMS
 
 ### Features
-- Erge pull request #1 from newrelic-experimental/feature/cluster-metrics
+- Merge pull request #1 from newrelic-experimental/feature/cluster-metrics
 
 ## Version: [v1.0.0](https://github.com/newrelic-experimental/nri-softwareag-ums/releases/tag/v1.0.0) | Created: 2023-08-22
 ### Features
