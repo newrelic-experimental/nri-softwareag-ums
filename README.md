@@ -40,11 +40,11 @@ In the extracted release directory run the encyptPwd.sh / encyptPwd.bat script a
 
   ### Step 1: Generate the 128 bit AES Key [ Example ]
           encyptPwd generateKey
-   Generated AES Key: ***REMOVED***
-  ### Step 2: Generate the mangles password [ Example ]
-	  encyptPwd encryptPassword ***REMOVED*** MyPassword@123
-   Encrypted Password: ***REMOVED***
-           Success !
+   Generated AES Key: <generated_aes_key>
+  ### Step 2: Generate the encypted password [ Example ]
+	  encyptPwd encryptPassword <generated_aes_key> <cleartext_password>
+   Encrypted Password: <encrypted_password>            
+   Success !
 ### Sample  softwareag-ums-server-config.json
        
 	{
@@ -54,7 +54,7 @@ In the extracted release directory run the encyptPwd.sh / encyptPwd.bat script a
 	      "host": "localhost",
 	      "port": 9000,
 	      "username": "myuser4",
-	      "password": "mypwd4",
+	      "password": "<cleartext_password>",
 	      "encryptPassword": false,
 	      "isCluster": false
 	    },
@@ -63,9 +63,9 @@ In the extracted release directory run the encyptPwd.sh / encyptPwd.bat script a
 	      "host": "localhost",
 	      "port": 9001,
 	      "username": "myuser4",
-	      "password": "***REMOVED***",
+	      "password": "<encrypted_password>",
 	      "encryptPassword": true,
-	      "aeskey": "***REMOVED***"
+	      "aeskey": "<generated_aes_key>"
 	    }
 	  ]
 	}
